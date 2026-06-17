@@ -19,7 +19,19 @@ dax/
 base_modificada/
   Base_de_Ventas_BO_OC.xlsx           + hoja Config (datos intactos)
   Factores_Cliente.xlsx               sin cambios (ya cumple)
+pbit/
+  Detalle_Forecast_Real_Proyectado.pbit   Plantilla con el modelo limpio (EXPERIMENTAL)
+  LEEME_PBIT.md                            Cómo usar la plantilla
+  DataModelSchema.json                     El modelo en texto (referencia)
 ```
+
+## Dos formas de aplicarlo
+
+1. **Kit (garantizado):** seguí `INSTRUCCIONES_PowerBI.md` y pegá el M/DAX en tu
+   `.pbix` actual (mantiene tu reporte y dimensiones).
+2. **Plantilla `.pbit` (experimental):** abrí `pbit/Detalle_Forecast_Real_Proyectado.pbit`
+   en Power BI Desktop; trae el modelo estrella del spec ya armado y refresca desde
+   tus Excel. Ver `pbit/LEEME_PBIT.md`.
 
 > El modelo de datos del `.pbix` es un binario XPress9 generado por el servicio de
 > Power BI y no puede recompilarse fuera de Power BI; por eso los cambios se entregan

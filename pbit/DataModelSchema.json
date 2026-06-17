@@ -1,0 +1,328 @@
+{
+  "name": "Detalle_Forecast_de_Ventas",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "es-ES",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "es-ES",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "tables": [
+      {
+        "name": "Resumen Base",
+        "lineageTag": "37ea819f-8b39-4775-85a6-8080bd2a4dfc",
+        "columns": [
+          {
+            "name": "VERTICAL",
+            "dataType": "string",
+            "sourceColumn": "VERTICAL",
+            "summarizeBy": "none",
+            "lineageTag": "f6a160c4-b685-40ff-b7bb-4cf7037a42be"
+          },
+          {
+            "name": "CLIENTE",
+            "dataType": "string",
+            "sourceColumn": "CLIENTE",
+            "summarizeBy": "none",
+            "lineageTag": "6757d9d2-4abd-450d-b97e-3f9be97e5ed3"
+          },
+          {
+            "name": "PRODUCTO/PLAN",
+            "dataType": "string",
+            "sourceColumn": "PRODUCTO/PLAN",
+            "summarizeBy": "none",
+            "lineageTag": "622a8d48-b77c-4bb0-b722-0a4364e3d97b"
+          },
+          {
+            "name": "CONCEPTO 1",
+            "dataType": "string",
+            "sourceColumn": "CONCEPTO 1",
+            "summarizeBy": "none",
+            "lineageTag": "e5f1f860-e9a9-4374-bb04-95d7dd5853bc"
+          },
+          {
+            "name": "CONCEPTO 2",
+            "dataType": "string",
+            "sourceColumn": "CONCEPTO 2",
+            "summarizeBy": "none",
+            "lineageTag": "3a624f1d-eb51-4417-8041-cf2b92595edc"
+          },
+          {
+            "name": "DIMENSIÓN",
+            "dataType": "string",
+            "sourceColumn": "DIMENSIÓN",
+            "summarizeBy": "none",
+            "lineageTag": "1eaa5c1c-5510-4c0e-8100-0b74ab232a33"
+          },
+          {
+            "name": "UM",
+            "dataType": "string",
+            "sourceColumn": "UM",
+            "summarizeBy": "none",
+            "lineageTag": "f1edee2d-38ee-4027-b6a2-91311b8eacc9"
+          },
+          {
+            "name": "Tipo de Negocio",
+            "dataType": "string",
+            "sourceColumn": "Tipo de Negocio",
+            "summarizeBy": "none",
+            "lineageTag": "368e1486-85e8-4a96-b5d4-33565850ffa3"
+          },
+          {
+            "name": "% de ",
+            "dataType": "int64",
+            "sourceColumn": "% de ",
+            "summarizeBy": "none",
+            "lineageTag": "22f71c0f-9ec2-4146-a96f-222a5ff8980a"
+          },
+          {
+            "name": "Fecha",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha",
+            "summarizeBy": "none",
+            "lineageTag": "faad56c8-d1c0-4616-a80c-f958b9d0dd9c"
+          },
+          {
+            "name": "Valor",
+            "dataType": "double",
+            "sourceColumn": "Valor",
+            "summarizeBy": "sum",
+            "lineageTag": "30320f4d-b5f7-4b00-8afd-25a9bf98eae5"
+          },
+          {
+            "name": "TipoDato",
+            "dataType": "string",
+            "sourceColumn": "TipoDato",
+            "summarizeBy": "none",
+            "lineageTag": "fe252fcf-94bd-4452-b771-d98814734161"
+          },
+          {
+            "name": "Valor en MIles",
+            "dataType": "double",
+            "sourceColumn": "Valor en MIles",
+            "summarizeBy": "sum",
+            "lineageTag": "8d957d54-f004-4643-9d9d-a1d35bb4fd2b"
+          },
+          {
+            "name": "Cliente_Concepto2",
+            "dataType": "string",
+            "sourceColumn": "Cliente_Concepto2",
+            "summarizeBy": "none",
+            "lineageTag": "e9213eec-23fd-4f09-86cb-c8b4517cc7aa"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Resumen Base",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Origen = Excel.Workbook(File.Contents(\"\\\\ERFLS01\\Files\\Nuevos Negocios\\Juliana\\10 TRBJ\\12 Ops Comp\\05 Costos\\09 Presupuesto - Budget - Fcst\\2026\\Base de Ventas BO OC.xlsx\"), null, true),\n    Hoja = Origen{[Item=\"Resumen Base\", Kind=\"Sheet\"]}[Data],\n    QuitarRuido = Table.Skip(Hoja, 4),\n    Encabezados = Table.PromoteHeaders(QuitarRuido, [PromoteAllScalars=true]),\n    ColsTotal = List.Select(Table.ColumnNames(Encabezados), each Text.StartsWith(_, \"Total\")),\n    SinTotales = Table.RemoveColumns(Encabezados, ColsTotal),\n    SinTotalCli = Table.SelectRows(SinTotales, each Text.Trim(Text.From([CLIENTE])) <> \"Total\"),\n    SinEliminar = Table.SelectRows(SinTotalCli, each Text.Upper(Text.Trim(Text.From([#\"Tipo de Negocio\"]))) <> \"ELIMINAR\"),\n    TipoPct = Table.TransformColumnTypes(SinEliminar, {{\"% de \", Int64.Type}}),\n    Atributos = {\"SECTOR/SERVICIO CEBE/CECO\",\"CLIENTE\",\"PRODUCTO/PLAN\",\"CONCEPTO 1\",\"CONCEPTO 2\",\"DIMENSIÓN\",\"UM\",\"Tipo de Negocio\",\"% de \"},\n    Unpivot = Table.UnpivotOtherColumns(TipoPct, Atributos, \"Atributo\", \"Valor\"),\n    FechaTipo = Table.TransformColumnTypes(Unpivot, {{\"Atributo\", type date}}),\n    Fecha = Table.RenameColumns(FechaTipo, {{\"Atributo\", \"Fecha\"}}),\n    FechaMes = Table.TransformColumns(Fecha, {{\"Fecha\", Date.StartOfMonth, type date}}),\n    ValorNum = Table.TransformColumns(FechaMes, {{\"Valor\", each Number.From(_), type number}}),\n    ConTipoDato = Table.AddColumn(ValorNum, \"TipoDato\", each if [Fecha] <= Date.StartOfMonth(FechaUltimoCierre) then \"Real\" else \"Proyectado\", type text),\n    RenVertical = Table.RenameColumns(ConTipoDato, {{\"SECTOR/SERVICIO CEBE/CECO\", \"VERTICAL\"}}),\n    ConMiles = Table.AddColumn(RenVertical, \"Valor en MIles\", each [Valor] / 10000000, type number),\n    ConClave = Table.AddColumn(ConMiles, \"Cliente_Concepto2\", each Text.From([CLIENTE]) & \" | \" & Text.From([CONCEPTO 2]), type text)\nin\n    ConClave"
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Ventas",
+            "expression": "SUM('Resumen Base'[Valor])",
+            "lineageTag": "5765aecf-6e63-4770-8283-2678628bfb9a"
+          },
+          {
+            "name": "Ventas Real",
+            "expression": "CALCULATE([Ventas], 'Resumen Base'[TipoDato] = \"Real\")",
+            "lineageTag": "9c8666a0-1af0-47f6-a807-eabf8bc9062e"
+          },
+          {
+            "name": "Ventas Proyectado",
+            "expression": "CALCULATE([Ventas], 'Resumen Base'[TipoDato] = \"Proyectado\")",
+            "lineageTag": "9bfc0280-8652-4a3f-bb51-d4f44744d872"
+          },
+          {
+            "name": "Ventas Forecast",
+            "expression": "[Ventas]",
+            "lineageTag": "1c5c46bb-98b3-490a-b8a1-99501cc773b5"
+          },
+          {
+            "name": "Último Cierre",
+            "expression": "CALCULATE(MAX('Resumen Base'[Fecha]), 'Resumen Base'[TipoDato] = \"Real\")",
+            "lineageTag": "a08e7b83-a6ca-492c-9cc7-f2485017570d"
+          },
+          {
+            "name": "Ventas Ajustada",
+            "expression": "SUMX('Resumen Base', 'Resumen Base'[Valor] * (1 + COALESCE(LOOKUPVALUE('DIM_Factores'[Factores Clientes], 'DIM_Factores'[Cliente_Concepto2], 'Resumen Base'[Cliente_Concepto2]), 0)))",
+            "lineageTag": "4f49abf5-ea29-410e-a219-2d96f6fbbe15"
+          }
+        ]
+      },
+      {
+        "name": "Calendario",
+        "lineageTag": "0ba6323c-44cd-481c-b931-2bb02dffa5ea",
+        "dataCategory": "Time",
+        "columns": [
+          {
+            "name": "Fecha",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha",
+            "summarizeBy": "none",
+            "lineageTag": "81b7f255-26ca-4a84-92e7-5ab2f5514d7f",
+            "isKey": true
+          },
+          {
+            "name": "Año",
+            "dataType": "int64",
+            "sourceColumn": "Año",
+            "summarizeBy": "none",
+            "lineageTag": "8a03dbce-62c6-462c-bcbf-16c129efd354"
+          },
+          {
+            "name": "Mes Nro",
+            "dataType": "int64",
+            "sourceColumn": "Mes Nro",
+            "summarizeBy": "none",
+            "lineageTag": "8d9b59c6-4fd6-46d4-b2da-a5e21d99c847"
+          },
+          {
+            "name": "Mes",
+            "dataType": "string",
+            "sourceColumn": "Mes",
+            "summarizeBy": "none",
+            "lineageTag": "1697ba34-684c-41e5-bff4-1cb930c31aaf"
+          },
+          {
+            "name": "Año-Mes",
+            "dataType": "string",
+            "sourceColumn": "Año-Mes",
+            "summarizeBy": "none",
+            "lineageTag": "0ecf4c1c-e0b9-4fa6-9723-a92dafe98092"
+          },
+          {
+            "name": "Trimestre",
+            "dataType": "string",
+            "sourceColumn": "Trimestre",
+            "summarizeBy": "none",
+            "lineageTag": "3e14df8b-868b-4596-9e2a-2b174c434bf1"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Calendario",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Inicio = #date(2024, 1, 1),\n    Fin = #date(2026, 12, 31),\n    N = Duration.Days(Fin - Inicio) + 1,\n    Fechas = List.Dates(Inicio, N, #duration(1, 0, 0, 0)),\n    Tabla = Table.FromList(Fechas, Splitter.SplitByNothing(), {\"Fecha\"}),\n    TFecha = Table.TransformColumnTypes(Tabla, {{\"Fecha\", type date}}),\n    Anio = Table.AddColumn(TFecha, \"Año\", each Date.Year([Fecha]), Int64.Type),\n    MesNro = Table.AddColumn(Anio, \"Mes Nro\", each Date.Month([Fecha]), Int64.Type),\n    Mes = Table.AddColumn(MesNro, \"Mes\", each Date.ToText([Fecha], [Format=\"MMMM\", Culture=\"es-ES\"]), type text),\n    AnioMes = Table.AddColumn(Mes, \"Año-Mes\", each Date.ToText([Fecha], [Format=\"yyyy-MM\", Culture=\"es-ES\"]), type text),\n    Trim = Table.AddColumn(AnioMes, \"Trimestre\", each \"Q\" & Text.From(Date.QuarterOfYear([Fecha])), type text)\nin\n    Trim"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DIM_Cliente",
+        "lineageTag": "be1e5cf1-1a91-44c7-a2d6-a85210d6ac79",
+        "columns": [
+          {
+            "name": "CLIENTE",
+            "dataType": "string",
+            "sourceColumn": "CLIENTE",
+            "summarizeBy": "none",
+            "lineageTag": "1d6cf85e-f124-4c93-9e93-6e7c3eaaa7b0"
+          },
+          {
+            "name": "VERTICAL",
+            "dataType": "string",
+            "sourceColumn": "VERTICAL",
+            "summarizeBy": "none",
+            "lineageTag": "407fac00-aa80-467a-99f0-0d38a78b49a3"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DIM_Cliente",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Fuente = #\"Resumen Base\",\n    Cols = Table.SelectColumns(Fuente, {\"CLIENTE\", \"VERTICAL\"}),\n    Unicos = Table.Distinct(Cols, {\"CLIENTE\"})\nin\n    Unicos"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DIM_Factores",
+        "lineageTag": "a705a03b-f0c7-4f4b-a34f-57ea0a9d926e",
+        "columns": [
+          {
+            "name": "Cliente_Concepto2",
+            "dataType": "string",
+            "sourceColumn": "Cliente_Concepto2",
+            "summarizeBy": "none",
+            "lineageTag": "fc5398de-7a9b-4ce6-9163-b81f98a9ee9f"
+          },
+          {
+            "name": "Factores Clientes",
+            "dataType": "double",
+            "sourceColumn": "Factores Clientes",
+            "summarizeBy": "none",
+            "lineageTag": "a9aa00de-09f6-46a5-9d18-d5870b573d17"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DIM_Factores",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Origen = Excel.Workbook(File.Contents(\"O:\\Nuevos Negocios\\Juliana\\10 TRBJ\\12 Ops Comp\\05 Costos\\09 Presupuesto - Budget - Fcst\\2026\\Factores Cliente.xlsx\"), null, true),\n    Hoja = Origen{[Item=\"Factores\", Kind=\"Sheet\"]}[Data],\n    Encab = Table.PromoteHeaders(Hoja, [PromoteAllScalars=true]),\n    Tipos = Table.TransformColumnTypes(Encab, {{\"Cliente_Concepto2\", type text}, {\"Factores Clientes\", type number}}),\n    SinDup = Table.Distinct(Tipos, {\"Cliente_Concepto2\"})\nin\n    SinDup"
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "c0e93c6c-0cff-45d8-90f4-fe5beefbe82d",
+        "fromTable": "Resumen Base",
+        "fromColumn": "Fecha",
+        "toTable": "Calendario",
+        "toColumn": "Fecha"
+      },
+      {
+        "name": "56b23a97-9d57-4fbf-a5d2-914c0d52680d",
+        "fromTable": "Resumen Base",
+        "fromColumn": "CLIENTE",
+        "toTable": "DIM_Cliente",
+        "toColumn": "CLIENTE"
+      },
+      {
+        "name": "e0dc977c-a03b-4c9b-a0b8-7f03e4af775b",
+        "fromTable": "Resumen Base",
+        "fromColumn": "Cliente_Concepto2",
+        "toTable": "DIM_Factores",
+        "toColumn": "Cliente_Concepto2"
+      }
+    ],
+    "expressions": [
+      {
+        "name": "FechaUltimoCierre",
+        "kind": "m",
+        "expression": "#date(2026, 4, 1) meta [IsParameterQuery=true, Type=\"Date\", IsParameterQueryRequired=true]",
+        "lineageTag": "7a779a10-b5b1-4981-a16b-0ecc23a5ac52",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Date"
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"FechaUltimoCierre\", \"Resumen Base\", \"DIM_Cliente\", \"DIM_Factores\", \"Calendario\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      }
+    ]
+  }
+}
