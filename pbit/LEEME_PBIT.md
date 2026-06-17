@@ -9,6 +9,11 @@ FACT (`Resumen Base` con `TipoDato` Real/Proyectado) + `DIM_Cliente` + `DIM_Fact
 > cruzadas, pero la prueba real es abrirlo. Si Power BI lo rechaza, usá el **kit**
 > (`powerquery/` + `dax/` + `INSTRUCCIONES_PowerBI.md`), que es el camino garantizado.
 
+> 🔧 **Corrección (v2):** la primera versión daba "archivo dañado" (`MashupValidationError`)
+> porque a un `.pbit` abierto en Desktop le faltaba la parte **DataMashup** (el paquete
+> de Power Query con las consultas). Esta versión ya incluye ese paquete (`Section1.m`
+> con las 5 consultas), con el formato binario MS-QDEFF verificado byte a byte.
+
 ## Cómo usarlo
 
 1. Abrí el `.pbit` con **Power BI Desktop** (doble clic).
