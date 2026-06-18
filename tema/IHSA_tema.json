@@ -1,0 +1,49 @@
+{
+  "name": "IHSA",
+  "dataColors": ["#1B4D8C", "#E8A13C", "#2E63A6", "#9DC1E8", "#163F73", "#5F5E5A", "#0C447C", "#C9D6E8"],
+  "background": "#FFFFFF",
+  "foreground": "#1B4D8C",
+  "tableAccent": "#E8A13C",
+  "good": "#2E7D32",
+  "neutral": "#E8A13C",
+  "bad": "#C62828",
+  "textClasses": {
+    "title":    { "color": "#1B4D8C", "fontFace": "Georgia", "fontSize": 14 },
+    "header":   { "color": "#1B4D8C", "fontFace": "Georgia", "fontSize": 12 },
+    "callout":  { "color": "#0C447C", "fontFace": "Georgia", "fontSize": 28 },
+    "label":    { "color": "#33475B", "fontFace": "Segoe UI", "fontSize": 10 }
+  },
+  "visualStyles": {
+    "slicer": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#163F73" } }, "transparency": 0 }],
+        "border":     [{ "show": true, "color": { "solid": { "color": "#2E63A6" } }, "radius": 10 }],
+        "dropShadow": [{ "show": true }],
+        "header":     [{ "show": true, "fontColor": { "solid": { "color": "#9DC1E8" } }, "fontFamily": "Georgia", "fontSize": 10 }],
+        "items":      [{ "fontColor": { "solid": { "color": "#FFFFFF" } }, "fontFamily": "Georgia" }]
+      }
+    },
+    "card": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border":     [{ "show": true, "color": { "solid": { "color": "#2E63A6" } }, "radius": 10 }],
+        "labels":     [{ "color": { "solid": { "color": "#0C447C" } }, "fontFamily": "Georgia" }],
+        "categoryLabels": [{ "color": { "solid": { "color": "#5F5E5A" } } }]
+      }
+    },
+    "cardVisual": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border":     [{ "show": true, "color": { "solid": { "color": "#2E63A6" } }, "radius": 10 }],
+        "dropShadow": [{ "show": true }]
+      }
+    },
+    "*": {
+      "*": {
+        "title":      [{ "show": true, "fontColor": { "solid": { "color": "#1B4D8C" } }, "fontFamily": "Georgia", "fontSize": 12, "alignment": "left" }],
+        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }],
+        "border":     [{ "show": true, "color": { "solid": { "color": "#C9D6E8" } }, "radius": 8 }]
+      }
+    }
+  }
+}
