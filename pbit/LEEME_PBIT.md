@@ -9,10 +9,12 @@ FACT (`Resumen Base` con `TipoDato` Real/Proyectado) + `DIM_Cliente` + `DIM_Fact
 > cruzadas, pero la prueba real es abrirlo. Si Power BI lo rechaza, usá el **kit**
 > (`powerquery/` + `dax/` + `INSTRUCCIONES_PowerBI.md`), que es el camino garantizado.
 
-> 🔧 **Corrección (v2):** la primera versión daba "archivo dañado" (`MashupValidationError`)
-> porque a un `.pbit` abierto en Desktop le faltaba la parte **DataMashup** (el paquete
-> de Power Query con las consultas). Esta versión ya incluye ese paquete (`Section1.m`
-> con las 5 consultas), con el formato binario MS-QDEFF verificado byte a byte.
+> 🔧 **Corrección (v3):** las versiones previas daban "archivo dañado" (`MashupValidationError`).
+> Causa: el formato binario del **DataMashup** estaba mal en la sección *metadata*
+> (faltaba la longitud `len(xml)+34` y el **tail obligatorio** `16 00 00 00` + registro
+> *EOCD* `50 4b 05 06`). Ya está corregido y **verificado con el parser de `powerbi-vcs`**
+> (lee PBIX reales) sin errores. Este `.pbit` trae el **modelo limpio** (FACT + Calendario
+> + DIM_Cliente + DIM_Factores + parámetro + medidas) como base para reconstruir el reporte.
 
 ## Cómo usarlo
 

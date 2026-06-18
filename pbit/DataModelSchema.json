@@ -12,105 +12,105 @@
     "tables": [
       {
         "name": "Resumen Base",
-        "lineageTag": "ff09f216-083b-45ed-8aff-25ba9bab257e",
+        "lineageTag": "527e5aa5-2e2d-4256-bb04-54f99a96dbea",
         "columns": [
           {
             "name": "VERTICAL",
             "dataType": "string",
             "sourceColumn": "VERTICAL",
             "summarizeBy": "none",
-            "lineageTag": "ecf8c31d-d1e1-4d55-a051-fd3f906b00e8"
+            "lineageTag": "64b249d4-d94c-48fb-bb90-264b3c927784"
           },
           {
             "name": "CLIENTE",
             "dataType": "string",
             "sourceColumn": "CLIENTE",
             "summarizeBy": "none",
-            "lineageTag": "7123afb5-9584-4292-8828-797390f37fbf"
+            "lineageTag": "a296789b-924c-4003-ae02-ecd1d820fbed"
           },
           {
             "name": "PRODUCTO/PLAN",
             "dataType": "string",
             "sourceColumn": "PRODUCTO/PLAN",
             "summarizeBy": "none",
-            "lineageTag": "ed548827-dc5f-4d82-a6f2-6daa9746de62"
+            "lineageTag": "dfed89ee-446b-48bd-9813-b07b942bada6"
           },
           {
             "name": "CONCEPTO 1",
             "dataType": "string",
             "sourceColumn": "CONCEPTO 1",
             "summarizeBy": "none",
-            "lineageTag": "968aa5e6-5b82-4b5d-9c1f-de9e9bd28191"
+            "lineageTag": "77af91e0-44b3-4297-9379-2d6a828a39c0"
           },
           {
             "name": "CONCEPTO 2",
             "dataType": "string",
             "sourceColumn": "CONCEPTO 2",
             "summarizeBy": "none",
-            "lineageTag": "1b55d3a6-1073-40f9-a7d2-f690b5a03092"
+            "lineageTag": "330a5d34-a36c-42f8-810e-93516f3bbddc"
           },
           {
             "name": "DIMENSIÓN",
             "dataType": "string",
             "sourceColumn": "DIMENSIÓN",
             "summarizeBy": "none",
-            "lineageTag": "01ad3844-3a3c-4151-ba0f-ac1478d64088"
+            "lineageTag": "8b5bd5fd-1b03-4a67-9917-114b4c5bcb52"
           },
           {
             "name": "UM",
             "dataType": "string",
             "sourceColumn": "UM",
             "summarizeBy": "none",
-            "lineageTag": "a69c50ea-bce1-4ba0-9dc3-ac26806b366b"
+            "lineageTag": "e1c39f62-8604-4036-b616-74f0907c8337"
           },
           {
             "name": "Tipo de Negocio",
             "dataType": "string",
             "sourceColumn": "Tipo de Negocio",
             "summarizeBy": "none",
-            "lineageTag": "a36fb70e-d4a3-4109-85e7-44bd0ef64d29"
+            "lineageTag": "d74e3866-3503-4cae-9949-ece1e1099c51"
           },
           {
             "name": "% de ",
             "dataType": "int64",
             "sourceColumn": "% de ",
             "summarizeBy": "none",
-            "lineageTag": "db2472f4-e6bb-47dd-8c96-3d4dd3ed848d"
+            "lineageTag": "5f141fb8-2107-467b-9c4b-990ddf7ac4c6"
           },
           {
             "name": "Fecha",
             "dataType": "dateTime",
             "sourceColumn": "Fecha",
             "summarizeBy": "none",
-            "lineageTag": "fd8d6ab4-557d-45cc-a1cd-15f50b0cca31"
+            "lineageTag": "6464b3c4-132f-4cdb-af52-7d26b83f8a04"
           },
           {
             "name": "Valor",
             "dataType": "double",
             "sourceColumn": "Valor",
             "summarizeBy": "sum",
-            "lineageTag": "f943bbe8-7f98-4000-b8f1-be469635e96d"
+            "lineageTag": "1f19e050-566d-41df-b179-876193b5a7b3"
           },
           {
             "name": "TipoDato",
             "dataType": "string",
             "sourceColumn": "TipoDato",
             "summarizeBy": "none",
-            "lineageTag": "35e835f9-1afa-428b-a09e-70222fa844ea"
+            "lineageTag": "b2fbd0ff-1966-4cb1-aa56-ade9c21f5345"
           },
           {
             "name": "Valor en MIles",
             "dataType": "double",
             "sourceColumn": "Valor en MIles",
             "summarizeBy": "sum",
-            "lineageTag": "75882d7f-d385-46a6-a01f-6d1a779209de"
+            "lineageTag": "8a5f64ee-82f5-48c9-92d2-8acf172b00d0"
           },
           {
             "name": "Cliente_Concepto2",
             "dataType": "string",
             "sourceColumn": "Cliente_Concepto2",
             "summarizeBy": "none",
-            "lineageTag": "c05c7178-3640-4acc-9df9-aafd28fc0301"
+            "lineageTag": "fb180484-8e7e-4ad4-a6d4-ecc274302266"
           }
         ],
         "partitions": [
@@ -127,38 +127,38 @@
           {
             "name": "Ventas",
             "expression": "SUM('Resumen Base'[Valor])",
-            "lineageTag": "577382c3-51ca-46f4-b5df-2fecd564a495"
+            "lineageTag": "d1bdd282-3628-4a4b-a751-8da59893c4e8"
           },
           {
             "name": "Ventas Real",
             "expression": "CALCULATE([Ventas], 'Resumen Base'[TipoDato] = \"Real\")",
-            "lineageTag": "c66de3f2-d7fc-4dfe-864f-a9028343e51e"
+            "lineageTag": "84c76002-7a24-4d17-a0d8-522cd345c210"
           },
           {
             "name": "Ventas Proyectado",
             "expression": "CALCULATE([Ventas], 'Resumen Base'[TipoDato] = \"Proyectado\")",
-            "lineageTag": "b168dbe7-c71b-4ba0-8c70-b9d0f319c34b"
+            "lineageTag": "25995d66-c591-4823-a4b5-3cc2dd81ed92"
           },
           {
             "name": "Ventas Forecast",
             "expression": "[Ventas]",
-            "lineageTag": "74f07c24-4472-43f9-8783-b46502e9b876"
+            "lineageTag": "b688555a-a2d8-4ea5-89df-46d9fa4d2b51"
           },
           {
             "name": "Último Cierre",
             "expression": "CALCULATE(MAX('Resumen Base'[Fecha]), 'Resumen Base'[TipoDato] = \"Real\")",
-            "lineageTag": "782a71bd-f1bc-49ba-98a5-0cff21d3fc1f"
+            "lineageTag": "6166aa7c-adc8-4577-a206-38529685698c"
           },
           {
             "name": "Ventas Ajustada",
             "expression": "SUMX('Resumen Base', 'Resumen Base'[Valor] * (1 + COALESCE(LOOKUPVALUE('DIM_Factores'[Factores Clientes], 'DIM_Factores'[Cliente_Concepto2], 'Resumen Base'[Cliente_Concepto2]), 0)))",
-            "lineageTag": "affab790-50d1-4b22-83e0-b305c7a1c6de"
+            "lineageTag": "a51f9aed-487f-47df-8a6b-5e651b743bcf"
           }
         ]
       },
       {
         "name": "Calendario",
-        "lineageTag": "90911e7e-442f-4fe0-8db7-aacb5d94263e",
+        "lineageTag": "491b1c44-81ef-40e3-8873-87cde9ee2026",
         "dataCategory": "Time",
         "columns": [
           {
@@ -166,7 +166,7 @@
             "dataType": "dateTime",
             "sourceColumn": "Fecha",
             "summarizeBy": "none",
-            "lineageTag": "e6a15556-d409-461e-a17a-5537be2446c3",
+            "lineageTag": "28135732-8145-46c0-a065-f4a9b3d55834",
             "isKey": true
           },
           {
@@ -174,35 +174,35 @@
             "dataType": "int64",
             "sourceColumn": "Año",
             "summarizeBy": "none",
-            "lineageTag": "851fe1fc-9d71-4f29-95e7-15fc1d341986"
+            "lineageTag": "ce6beac8-27d4-49db-a1fc-cd67a21b1e57"
           },
           {
             "name": "Mes Nro",
             "dataType": "int64",
             "sourceColumn": "Mes Nro",
             "summarizeBy": "none",
-            "lineageTag": "810a7b3e-bc2e-44ef-b8e6-e967347d8a2c"
+            "lineageTag": "47c8d044-a988-49c6-989e-56071e6c7fa4"
           },
           {
             "name": "Mes",
             "dataType": "string",
             "sourceColumn": "Mes",
             "summarizeBy": "none",
-            "lineageTag": "3632bda4-e311-4da3-a2fb-0f758324a2a4"
+            "lineageTag": "061750e9-90ef-4b19-914d-9eb501c039ba"
           },
           {
             "name": "Año-Mes",
             "dataType": "string",
             "sourceColumn": "Año-Mes",
             "summarizeBy": "none",
-            "lineageTag": "d3ae846b-4fd9-43a8-816a-c5c14ebd3402"
+            "lineageTag": "de8dd982-e7e7-4385-8a55-484a8041f85d"
           },
           {
             "name": "Trimestre",
             "dataType": "string",
             "sourceColumn": "Trimestre",
             "summarizeBy": "none",
-            "lineageTag": "5b2d6602-5dc0-424b-bc61-d169018b2195"
+            "lineageTag": "1bf094c9-a104-49dd-8dad-a885fb6ff78a"
           }
         ],
         "partitions": [
@@ -218,21 +218,21 @@
       },
       {
         "name": "DIM_Cliente",
-        "lineageTag": "d6c99203-23c3-4b5d-a895-82ee1b0ec16f",
+        "lineageTag": "d47afd4b-9acb-43cd-97ee-b2aa2da68061",
         "columns": [
           {
             "name": "CLIENTE",
             "dataType": "string",
             "sourceColumn": "CLIENTE",
             "summarizeBy": "none",
-            "lineageTag": "78801327-4747-4923-a703-d2813935690d"
+            "lineageTag": "97c40267-85d5-41ed-9cdf-a0e36e4e4365"
           },
           {
             "name": "VERTICAL",
             "dataType": "string",
             "sourceColumn": "VERTICAL",
             "summarizeBy": "none",
-            "lineageTag": "5d8e2a23-5b01-4446-8395-8924aed89116"
+            "lineageTag": "a9628d8e-5cf9-4e7f-9419-7cd95275e4cc"
           }
         ],
         "partitions": [
@@ -248,21 +248,21 @@
       },
       {
         "name": "DIM_Factores",
-        "lineageTag": "fdfd8522-f133-48dd-a0d5-205e54947ecd",
+        "lineageTag": "d03d88a2-4003-4d99-80ca-0e3daf026666",
         "columns": [
           {
             "name": "Cliente_Concepto2",
             "dataType": "string",
             "sourceColumn": "Cliente_Concepto2",
             "summarizeBy": "none",
-            "lineageTag": "bc0bf54f-2f3e-4a62-b3f7-215507f32fc4"
+            "lineageTag": "1ccee7a7-7635-4618-ae08-a1cd8113f721"
           },
           {
             "name": "Factores Clientes",
             "dataType": "double",
             "sourceColumn": "Factores Clientes",
             "summarizeBy": "none",
-            "lineageTag": "db872b53-6621-42e8-822e-bd9aec9c6050"
+            "lineageTag": "12c7b588-129f-4670-a42f-67af01253759"
           }
         ],
         "partitions": [
@@ -279,21 +279,21 @@
     ],
     "relationships": [
       {
-        "name": "a1a3273b-2336-4f1d-8b31-cac680caa42c",
+        "name": "5487e8c6-4752-45ce-b214-f5ca9a045832",
         "fromTable": "Resumen Base",
         "fromColumn": "Fecha",
         "toTable": "Calendario",
         "toColumn": "Fecha"
       },
       {
-        "name": "de880325-ef2a-4e05-bc4e-feb9aaea83e2",
+        "name": "9b50ae6c-1e8d-4fb4-aafd-b2f49ed1d412",
         "fromTable": "Resumen Base",
         "fromColumn": "CLIENTE",
         "toTable": "DIM_Cliente",
         "toColumn": "CLIENTE"
       },
       {
-        "name": "89e7c83c-46dd-4a86-afff-f5e9d8b36fea",
+        "name": "248a03e8-a437-43ac-8fda-213b71b45ef2",
         "fromTable": "Resumen Base",
         "fromColumn": "Cliente_Concepto2",
         "toTable": "DIM_Factores",
@@ -305,7 +305,7 @@
         "name": "FechaUltimoCierre",
         "kind": "m",
         "expression": "#date(2026, 4, 1) meta [IsParameterQuery=true, Type=\"Date\", IsParameterQueryRequired=true]",
-        "lineageTag": "8861add8-2aaa-4fec-bfa1-36b5358807d4",
+        "lineageTag": "27659a30-5ad8-4ffb-8855-9f805820b95d",
         "annotations": [
           {
             "name": "PBI_ResultType",
